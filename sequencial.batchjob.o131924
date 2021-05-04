@@ -1,0 +1,47 @@
+--------------------------------------
+Running PBS prologue script
+
+Checking all prerequisites...
+Done.
+
+Running on host grad07
+
+Initial Time is Tue May 4 19:24:47 BRT 2021
+
+Directory is /home/pp12720/t1-mss-prog-paralel
+
+This jobs runs on the following nodes:
+grad07
+
+JOB_ID:
+131924
+
+------------
+=>> PBS: job killed: walltime 1210 exceeded limit 1200
+
+--------------------------------------
+Running PBS epilogue.user script
+
+End of PBS epilogue.user script
+
+--------------------------------------
+Running PBS epilogue script
+
+Disabling access of user pp12720 on the batch nodes
+Doing node grad07
+
+ -- Killing all stale user  processes... done.
+ -- Cleaning-up any shmemory segments... done.
+
+Done.
+
+Resources used:
+
+ -- CPU TIME     = 00:20:06 
+
+ -- MEMORY       = 9020kb 
+
+ -- VIRTUAL MEM  = 29448kb 
+
+ -- ELAPSED TIME = 00:20:10 
+

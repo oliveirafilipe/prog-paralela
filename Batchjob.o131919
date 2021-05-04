@@ -1,0 +1,66 @@
+--------------------------------------
+Running PBS prologue script
+
+Checking all prerequisites...
+Done.
+
+Running on host grad08
+
+Initial Time is Tue May 4 18:34:12 BRT 2021
+
+Directory is /home/pp12720/t1-mss-prog-paralel
+
+This jobs runs on the following nodes:
+grad08
+
+JOB_ID:
+131919
+
+10000 0.764339
+20000 3.064349
+30000 6.863243
+40000 12.208581
+50000 19.121540
+60000 27.479772
+70000 37.604964
+80000 49.532925
+90000 63.076458
+100000 77.957636
+99670
+99860
+99890
+99910
+99930
+99930
+99944
+99944
+99944
+99944
+Final Time is Tue May 4 18:39:10 BRT 2021
+
+--------------------------------------
+Running PBS epilogue.user script
+
+End of PBS epilogue.user script
+
+--------------------------------------
+Running PBS epilogue script
+
+Disabling access of user pp12720 on the batch nodes
+Doing node grad08
+
+ -- Killing all stale user  processes... done.
+ -- Cleaning-up any shmemory segments... done.
+
+Done.
+
+Resources used:
+
+ -- CPU TIME     = 01:18:42 
+
+ -- MEMORY       = 9680kb 
+
+ -- VIRTUAL MEM  = 152104kb 
+
+ -- ELAPSED TIME = 00:04:58 
+
