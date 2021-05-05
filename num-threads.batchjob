@@ -60,22 +60,22 @@ echo ################
 echo ------------
 
 export OMP_NUM_THREADS=2
-./solution > dados-threads-2.txt 2> tempos-threads-2.txt
+./solution > dados-threads1-2.txt 2> tempos-threads1-2.txt
 
 echo ------------
 
 export OMP_NUM_THREADS=4
-./solution > dados-threads-4.txt 2> tempos-threads-4.txt
+./solution > dados-threads1-4.txt 2> tempos-threads1-4.txt
 
 echo ------------
 
 export OMP_NUM_THREADS=8
-./solution > dados-threads-8.txt 2> tempos-threads-8.txt
+./solution > dados-threads1-8.txt 2> tempos-threads1-8.txt
 
 echo ------------
 
 export OMP_NUM_THREADS=16
-./solution > dados-threads-16.txt 2> tempos-threads-16.txt
+./solution > dados-threads1-16.txt 2> tempos-threads1-16.txt
 
 ################
 
