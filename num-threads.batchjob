@@ -13,7 +13,7 @@
 
 ################ Change these parameters according to your requisites
 
-#PBS -l nodes=grad07:ppn=16:cluster-Grad,walltime=00:40:00
+#PBS -l nodes=grad08:ppn=16:cluster-Grad,walltime=03:00:00
 
 ################ Where:
 ################ nodes = number of nodes requested
@@ -59,15 +59,23 @@ echo ################
 
 echo ------------
 
-./solution > dados-guided-1.txt 2> tempos-guided-1.txt
+export OMP_NUM_THREADS=2
+./solution > dados-threads-2.txt 2> tempos-threads-2.txt
 
 echo ------------
 
-./solution > dados-guided-2.txt 2> tempos-guided-2.txt
+export OMP_NUM_THREADS=4
+./solution > dados-threads-4.txt 2> tempos-threads-4.txt
 
 echo ------------
 
-./solution > dados-guided-3.txt 2> tempos-guided-3.txt
+export OMP_NUM_THREADS=8
+./solution > dados-threads-8.txt 2> tempos-threads-8.txt
+
+echo ------------
+
+export OMP_NUM_THREADS=16
+./solution > dados-threads-16.txt 2> tempos-threads-16.txt
 
 ################
 

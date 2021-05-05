@@ -13,13 +13,15 @@
 
 ################ Change these parameters according to your requisites
 
-#PBS -l nodes=grad07:ppn=16:cluster-Grad,walltime=00:40:00
+#PBS -l nodes=grad08:ppn=16:cluster-Grad,walltime=00:15:00
 
 ################ Where:
 ################ nodes = number of nodes requested
 ################ ppn = number of cores per node
 ################ cluster-Atlantica / cluster-Gates = cluster name
 ################ walltime = max allocation time
+
+################ Please, change this e-mail address to yours
 
 #PBS -r n
 
@@ -31,7 +33,6 @@
 
 ################ Please, change this directory to your working dir.
 
-#PBS -d /home/pp12720/t1-mss-prog-paralel
 
 ################
 
@@ -57,17 +58,7 @@ echo ################
 
 ############# If running a sequential or openMP program
 
-echo ------------
-
-./solution > dados-guided-1.txt 2> tempos-guided-1.txt
-
-echo ------------
-
-./solution > dados-guided-2.txt 2> tempos-guided-2.txt
-
-echo ------------
-
-./solution > dados-guided-3.txt 2> tempos-guided-3.txt
+sleep 1000000000000
 
 ################
 
