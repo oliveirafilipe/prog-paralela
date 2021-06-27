@@ -7,10 +7,10 @@
 #include "mpi.h"
 
 /* CONSTANTES */
-#define GRAU         400
-#define TAM_INI    10000
-#define TAM_INC    10000
-#define TAM_MAX   100000
+#define GRAU 400
+#define TAM_INI 100
+#define TAM_INC 100
+#define TAM_MAX 1000
 
 /* VARIAVEIS GLOBAIS */
 double x[TAM_MAX], y[TAM_MAX], gabarito[TAM_MAX];
@@ -74,22 +74,24 @@ int main(int argc, char **argv)
       tempo = -MPI_Wtime();
 
       int limiteBloco = size / (n - 1);
+      int remainder = size % (n - 1);
       for (i = 1; i < n; i++)
       {
-        MPI_Send(&limiteBloco, 1, MPI_INT, i, 1, MPI_COMM_WORLD);
-        MPI_Send(x + ((i - 1) * limiteBloco), limiteBloco, MPI_DOUBLE, i, 1, MPI_COMM_WORLD);
+        int tamanho = limiteBloco + ((i == n - 1) ? remainder : 0);
+        MPI_Send(&tamanho, 1, MPI_INT, i, 1, MPI_COMM_WORLD);
+        MPI_Send(x + ((i - 1) * limiteBloco), tamanho, MPI_DOUBLE, i, 1, MPI_COMM_WORLD);
       }
 
+      vresp = malloc(sizeof(double) * (limiteBloco + remainder));
       for (i = 1; i < n; i++)
       {
-        int limites[2];
-        vresp = malloc(sizeof(double) * limiteBloco);
-        MPI_Recv(vresp, limiteBloco, MPI_DOUBLE, MPI_ANY_SOURCE, 2, MPI_COMM_WORLD, &status);
+        MPI_Recv(vresp, limiteBloco + remainder, MPI_DOUBLE, MPI_ANY_SOURCE, 2, MPI_COMM_WORLD, &status);
         int inicio = ((status.MPI_SOURCE - 1) * limiteBloco);
-        int fim = inicio + limiteBloco;
+        int fim = inicio + limiteBloco + ((status.MPI_SOURCE == n - 1) ? remainder : 0);
         for (int j = inicio; j < fim; j++)
           y[j] = vresp[j - inicio];
       }
+      free(vresp);
 
       /* Verificacao */
       for (i = 0; i < size; ++i)
@@ -104,19 +106,21 @@ int main(int argc, char **argv)
       //   /* Mostra tempo */
       printf("%d %lf\n", size, tempo);
     }
-    printf("Primario Encerrando\n");
 
-    free(vresp);
+    // Encerra Filhos
+    for (i = 1; i < n; i++)
+        MPI_Send(&id, 1, MPI_INT, i, 5, MPI_COMM_WORLD);
   }
   else
   {
     MPI_Bcast(a, GRAU + 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
-    int stop = 10;
-    for (int controle = 0; controle < stop; controle++)
+    while (1)
     {
       int tamanho;
-      MPI_Recv(&tamanho, 1, MPI_INT, 0, 1, MPI_COMM_WORLD, &status);
+      MPI_Recv(&tamanho, 1, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+      if(status.MPI_TAG == 5)
+        break;
       vet = malloc(sizeof(double) * tamanho);
       vresp = malloc(sizeof(double) * tamanho);
       MPI_Recv(vet, tamanho, MPI_DOUBLE, 0, 1, MPI_COMM_WORLD, &status);
@@ -127,7 +131,6 @@ int main(int argc, char **argv)
       free(vet);
       free(vresp);
     }
-    // printf("[%d] Terminado\n", id);
   }
   MPI_Finalize();
   return 0;
