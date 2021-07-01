@@ -1,0 +1,73 @@
+#!/bin/bash
+
+################-> are comments
+################-> "#PBS" are Batch Script commands
+
+#PBS -m abe
+
+################ Verbose mode
+
+#PBS -V
+
+################
+
+################ Change these parameters according to your requisites
+
+#PBS -l nodes=2:ppn=16:cluster-Grad,walltime=00:15:00
+
+################ Where:
+################ nodes = number of nodes requested
+################ ppn = number of cores per node
+################ cluster-Atlantica / cluster-Gates = cluster name
+################ walltime = max allocation time
+
+################ Please, change this e-mail address to yours
+
+#PBS -M filipe.freitas@edu.pucrs.br
+
+################
+
+#PBS -r n
+
+################ Output options
+
+#PBS -j oe
+
+################
+
+################ Please, change this directory to your working dir.
+
+#PBS -d /home/pp12716/prog-paralela/t2
+
+################
+
+################
+echo Running on host `hostname`
+echo
+echo Initial Time is `date`
+echo
+echo Directory is `pwd`
+echo
+echo This jobs runs on the following nodes:
+echo `cat $PBS_NODEFILE | uniq`
+echo
+echo JOB_ID:
+echo `echo $PBS_JOBID`
+echo ################
+
+############# Command example, if using MPI
+
+#mpirun -machinefile nodefile -np 16 program_mpi
+
+################
+
+############# If running a sequential or openMP program
+
+mpirun -np 16 ./exec-paralel > output-2node-16proc-`date +%s`.txt
+
+mpirun -np 32 ./exec-paralel > output-2node-32proc-`date +%s`.txt
+
+################
+
+echo Final Time is `date`
+
